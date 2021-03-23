@@ -88,7 +88,7 @@ class _TrianglePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final pen = Paint();
 
-    pen.color = Colors.brown;
+    pen.color = Colors.deepOrangeAccent;
     pen.style = PaintingStyle.fill;
     pen.strokeWidth = 5.0;
 
