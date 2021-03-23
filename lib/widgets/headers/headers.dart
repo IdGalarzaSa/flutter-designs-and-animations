@@ -105,3 +105,133 @@ class _TrianglePainter extends CustomPainter {
   @override
   bool shouldRebuildSemantics(_TrianglePainter oldDelegate) => false;
 }
+
+class PeakHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: CustomPaint(painter: _PeakPainter()),
+    );
+  }
+}
+
+class _PeakPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final pen = Paint();
+
+    pen.color = Colors.brown;
+    pen.style = PaintingStyle.fill;
+    pen.strokeWidth = 5.0;
+
+    final path = Path();
+    path.lineTo(0, size.height * 0.25);
+    path.lineTo(size.width * 0.5, size.height * 0.32);
+    path.lineTo(size.width, size.height * 0.25);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, pen);
+  }
+
+  @override
+  bool shouldRepaint(_PeakPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(_PeakPainter oldDelegate) => false;
+}
+
+class CurvedUpHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: CustomPaint(painter: _CurvedUpPainter()),
+    );
+  }
+}
+
+class _CurvedUpPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final pen = Paint();
+
+    pen.color = Colors.red;
+    pen.style = PaintingStyle.fill;
+    pen.strokeWidth = 5.0;
+
+    final path = Path();
+    /*
+      "quadraticBezierTo" Nos permite hacer una curva definiendo un punto
+      por donde deseamos que pase la curva y un punto final de la curva.
+
+      Nota: El punto inial de la curva es el punto previo. 
+
+      x1, y1 -> Es el punto por donde deseamos que pase la curvatura.
+      x2, y2 -> Es el punto final de la curvatura.
+
+    */
+
+    path.lineTo(0, size.height * 0.30);
+    path.quadraticBezierTo(
+        size.width * 0.5, size.height * 0.20, size.width, size.height * 0.30);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, pen);
+  }
+
+  @override
+  bool shouldRepaint(_CurvedUpPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(_CurvedUpPainter oldDelegate) => false;
+}
+
+class CurvedDownHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: CustomPaint(painter: _CurvedDownPainter()),
+    );
+  }
+}
+
+class _CurvedDownPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final pen = Paint();
+
+    pen.color = Colors.pink;
+    pen.style = PaintingStyle.fill;
+    pen.strokeWidth = 5.0;
+
+    final path = Path();
+    /*
+      "quadraticBezierTo" Nos permite hacer una curva definiendo un punto
+      por donde deseamos que pase la curva y un punto final de la curva.
+
+      Nota: El punto inial de la curva es el punto previo. 
+
+      x1, y1 -> Es el punto por donde deseamos que pase la curvatura.
+      x2, y2 -> Es el punto final de la curvatura.
+
+    */
+
+    path.lineTo(0, size.height * 0.25);
+    path.quadraticBezierTo(
+        size.width * 0.5, size.height * 0.35, size.width, size.height * 0.25);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, pen);
+  }
+
+  @override
+  bool shouldRepaint(_CurvedDownPainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(_CurvedDownPainter oldDelegate) => false;
+}
