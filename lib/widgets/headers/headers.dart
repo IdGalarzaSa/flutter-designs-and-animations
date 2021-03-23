@@ -36,13 +36,13 @@ class DiagonalHeader extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       child: CustomPaint(
-        painter: _MyCustomPainter(),
+        painter: _DiagonalPainter(),
       ),
     );
   }
 }
 
-class _MyCustomPainter extends CustomPainter {
+class _DiagonalPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final pen = new Paint();
@@ -66,8 +66,42 @@ class _MyCustomPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_MyCustomPainter oldDelegate) => true;
+  bool shouldRepaint(_DiagonalPainter oldDelegate) => true;
 
   @override
-  bool shouldRebuildSemantics(_MyCustomPainter oldDelegate) => false;
+  bool shouldRebuildSemantics(_DiagonalPainter oldDelegate) => false;
+}
+
+class TriangleHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: CustomPaint(painter: _TrianglePainter()),
+    );
+  }
+}
+
+class _TrianglePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final pen = Paint();
+
+    pen.color = Colors.brown;
+    pen.style = PaintingStyle.fill;
+    pen.strokeWidth = 5.0;
+
+    final path = Path();
+    path.lineTo(size.width, size.height);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, pen);
+  }
+
+  @override
+  bool shouldRepaint(_TrianglePainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(_TrianglePainter oldDelegate) => false;
 }
