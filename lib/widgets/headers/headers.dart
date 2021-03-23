@@ -235,3 +235,44 @@ class _CurvedDownPainter extends CustomPainter {
   @override
   bool shouldRebuildSemantics(_CurvedDownPainter oldDelegate) => false;
 }
+
+class WaveHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: CustomPaint(painter: _WavePainter()),
+    );
+  }
+}
+
+class _WavePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final pen = Paint();
+
+    pen.color = Colors.teal;
+    pen.style = PaintingStyle.fill;
+    pen.strokeWidth = 5.0;
+
+    final path = Path();
+
+    path.lineTo(0, size.height * 0.25);
+
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.35,
+        size.width * 0.5, size.height * 0.25);
+
+    path.quadraticBezierTo(
+        size.width * 0.75, size.height * 0.15, size.width, size.height * 0.25);
+    path.lineTo(size.width, 0);
+
+    canvas.drawPath(path, pen);
+  }
+
+  @override
+  bool shouldRepaint(_WavePainter oldDelegate) => false;
+
+  @override
+  bool shouldRebuildSemantics(_WavePainter oldDelegate) => false;
+}
