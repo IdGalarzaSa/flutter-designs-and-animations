@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
       routes: {
         HeaderPage.routeName: (BuildContext context) => HeaderPage(),
       },
+      theme: ThemeData.dark(),
     );
   }
 }
