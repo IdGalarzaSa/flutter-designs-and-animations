@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BoxHeaderWidget extends StatelessWidget {
+class BoxHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -27,4 +27,47 @@ class BoxHeaderWithRoundedEdges extends StatelessWidget {
       ),
     );
   }
+}
+
+class DiagonalHeader extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: CustomPaint(
+        painter: _MyCustomPainter(),
+      ),
+    );
+  }
+}
+
+class _MyCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final pen = new Paint();
+    /*
+      Style:
+      .fill   -> Pinta la figura creada por el path. (Necesita un minimo de 2 lineas)
+      .stroke -> Pinta solo las lineas creadas por el path. No pinta la figurá creada.
+    */
+    pen.style = PaintingStyle.fill;
+    pen.color = Colors.green; // Color del lapiz
+    pen.strokeWidth = 5.0; // Ancho del lapiz.
+
+    final path = new Path(); // Contiene las instrucciones del dibujo
+
+    path.moveTo(0, size.height * 0.35);
+    path.lineTo(size.width, size.height * 0.30);
+    path.lineTo(size.width, 0);
+    path.lineTo(0, 0);
+
+    canvas.drawPath(path, pen);
+  }
+
+  @override
+  bool shouldRepaint(_MyCustomPainter oldDelegate) => true;
+
+  @override
+  bool shouldRebuildSemantics(_MyCustomPainter oldDelegate) => false;
 }
