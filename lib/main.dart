@@ -3,6 +3,7 @@ import 'package:flutter_designs/challengs/animation_challenge_page.dart';
 import 'package:flutter_designs/pages/animations_page.dart';
 import 'package:flutter_designs/labs/circular_animation_lab.dart';
 import 'package:flutter_designs/pages/header_page.dart';
+import 'package:flutter_designs/pages/progress_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: CircularAnimationLab.routeName,
+      initialRoute: ProgressPage.routeName,
       routes: {
         HeaderPage.routeName: (BuildContext context) => HeaderPage(),
         AnimationsPage.routeName: (BuildContext context) => AnimationsPage(),
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
             AnimationChallengePage(),
         CircularAnimationLab.routeName: (BuildContext context) =>
             CircularAnimationLab(),
+        ProgressPage.routeName: (BuildContext context) => ProgressPage(),
       },
       theme: ThemeData.dark(),
     );
