@@ -1,5 +1,7 @@
+import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FloatingBottomMenuButton {
   final IconData iconData;
@@ -21,12 +23,12 @@ class FloatingBottomMenuWidget extends StatelessWidget {
     FloatingBottomMenuButton(iconData: Icons.add, onPressed: () => print("menu 3"), iconColor: Colors.blueAccent),
     FloatingBottomMenuButton(iconData: Icons.list, onPressed: () => print("menu 4"), iconColor: Colors.blueAccent),
     FloatingBottomMenuButton(iconData: Icons.settings, onPressed: () => print("menu 5"), iconColor: Colors.blueAccent),
-    FloatingBottomMenuButton(iconData: Icons.settings, onPressed: () => print("menu 5"), iconColor: Colors.blueAccent),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return ChangeNotifierProvider(
+      create: (BuildContext context) => new _MenuModel(),
       child: _BackgroundMenu(
         child: _ButtonsMenu(menuButtonList),
       ),
@@ -87,20 +89,37 @@ class _MenuButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(clickSpace);
+    final menuModel = Provider.of<_MenuModel>(context, listen: true);
 
     return GestureDetector(
-      onTap: button.onPressed,
+      onTap: () {
+        menuModel.selectedMenuIndex = index;
+        button.onPressed();
+      },
       behavior: HitTestBehavior.translucent,
       child: Container(
-        color: Colors.amberAccent,
-        padding: EdgeInsets.all(clickSpace * 40),
+        decoration: BoxDecoration(
+          // color: Colors.amberAccent,
+          borderRadius: BorderRadius.circular(200),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: clickSpace * 50),
         child: Icon(
           button.iconData,
-          size: 20,
-          color: button.iconColor,
+          size: menuModel.selectedMenuIndex == index ? 30 : 20,
+          color: menuModel.selectedMenuIndex == index ? button.iconColor : Colors.black38,
         ),
       ),
     );
+  }
+}
+
+class _MenuModel extends ChangeNotifier {
+  int _selectedMenuIndex = 0;
+
+  get selectedMenuIndex => this._selectedMenuIndex;
+
+  set selectedMenuIndex(int newSelectedMenuIndex) {
+    this._selectedMenuIndex = newSelectedMenuIndex;
+    notifyListeners();
   }
 }
