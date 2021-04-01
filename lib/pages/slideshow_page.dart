@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_designs/widgets/slideshow.dart';
+import 'package:flutter_designs/widgets/slideshow_widget.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SlideshowPage extends StatelessWidget {

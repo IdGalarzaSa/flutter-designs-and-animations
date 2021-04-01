@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_designs/widgets/floating_bottom_menu_widget.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PinterestPage extends StatelessWidget {
@@ -11,7 +12,12 @@ class PinterestPage extends StatelessWidget {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        child: PinterestGrid(),
+        child: Stack(
+          children: [
+            // PinterestGrid(),
+            FloatingBottomMenuWidget(),
+          ],
+        ),
       ),
     );
   }
