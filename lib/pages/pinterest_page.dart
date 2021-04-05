@@ -5,17 +5,25 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PinterestPage extends StatelessWidget {
   static final routeName = "PinterestPage";
-
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Container(
         width: double.infinity,
         height: double.infinity,
         child: Stack(
           children: [
-            // PinterestGrid(),
-            FloatingBottomMenuWidget(),
+            PinterestGrid(),
+            Positioned(
+              bottom: 30,
+              child: Container(
+                color: Colors.amberAccent,
+                width: screenWidth,
+                child: Align(child: FloatingBottomMenuWidget()),
+              ),
+            ),
           ],
         ),
       ),
