@@ -1,4 +1,3 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,37 +5,43 @@ import 'package:provider/provider.dart';
 class FloatingBottomMenuButton {
   final IconData iconData;
   final Function onPressed;
-  Color iconDefaultColor;
-  Color iconAccentColor;
 
-  FloatingBottomMenuButton({
-    @required this.iconData,
-    @required this.onPressed,
-    this.iconDefaultColor = Colors.black,
-    this.iconAccentColor = Colors.lightBlue,
-  });
+  FloatingBottomMenuButton({@required this.iconData, @required this.onPressed});
 }
 
 class FloatingBottomMenuWidget extends StatelessWidget {
+  final List<FloatingBottomMenuButton> menuButtonList;
+  final bool showMenu;
   final Color backgroundMenuColor;
+  final Color iconActiveColor;
+  final Color iconInactiveColor;
 
-  FloatingBottomMenuWidget({this.backgroundMenuColor = Colors.white});
-
-  final List<FloatingBottomMenuButton> menuButtonList = [
-    FloatingBottomMenuButton(iconData: Icons.pie_chart, onPressed: () => print("menu 1")),
-    FloatingBottomMenuButton(iconData: Icons.notifications, onPressed: () => print("menu 2")),
-    FloatingBottomMenuButton(iconData: Icons.add, onPressed: () => print("menu 3")),
-    FloatingBottomMenuButton(iconData: Icons.list, onPressed: () => print("menu 4")),
-    FloatingBottomMenuButton(iconData: Icons.settings, onPressed: () => print("menu 5")),
-  ];
+  FloatingBottomMenuWidget({
+    @required this.menuButtonList,
+    @required this.showMenu,
+    this.backgroundMenuColor = Colors.white,
+    this.iconActiveColor = Colors.blueGrey,
+    this.iconInactiveColor = Colors.black,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context) => new _MenuModel(),
-      child: _BackgroundMenu(
-        child: _ButtonsMenu(menuButtonList),
-        backgroundMenuColor: backgroundMenuColor,
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: 250),
+        opacity: showMenu ? 1 : 0,
+        child: Visibility(
+          visible: showMenu,
+          child: Builder(builder: (BuildContext context) {
+            final menuProvider = Provider.of<_MenuModel>(context);
+            menuProvider.backgroundMenuColor = this.backgroundMenuColor;
+            menuProvider.iconActiveColor = this.iconActiveColor;
+            menuProvider.iconInactiveColor = this.iconInactiveColor;
+
+            return _BackgroundMenu(child: _ButtonsMenu(menuButtonList));
+          }),
+        ),
       ),
     );
   }
@@ -44,11 +49,12 @@ class FloatingBottomMenuWidget extends StatelessWidget {
 
 class _BackgroundMenu extends StatelessWidget {
   final Widget child;
-  final Color backgroundMenuColor;
-  _BackgroundMenu({@required this.child, this.backgroundMenuColor});
+  _BackgroundMenu({@required this.child});
 
   @override
   Widget build(BuildContext context) {
+    Color backgroundMenuColor = Provider.of<_MenuModel>(context)._backgroundMenuColor;
+
     return Container(
       child: child,
       height: 40,
@@ -112,7 +118,7 @@ class _MenuButton extends StatelessWidget {
         child: Icon(
           button.iconData,
           size: menuModel.selectedMenuIndex == index ? 30 : 20,
-          color: menuModel.selectedMenuIndex == index ? button.iconAccentColor : button.iconDefaultColor,
+          color: menuModel.selectedMenuIndex == index ? menuModel.iconActiveColor : menuModel.iconInactiveColor,
         ),
       ),
     );
@@ -121,11 +127,35 @@ class _MenuButton extends StatelessWidget {
 
 class _MenuModel extends ChangeNotifier {
   int _selectedMenuIndex = 0;
+  Color _backgroundMenuColor = Colors.white;
+  Color _iconActiveColor = Colors.black;
+  Color _iconInactiveColor = Colors.blueGrey;
 
   get selectedMenuIndex => this._selectedMenuIndex;
 
   set selectedMenuIndex(int newSelectedMenuIndex) {
     this._selectedMenuIndex = newSelectedMenuIndex;
+    notifyListeners();
+  }
+
+  get backgroundMenuColor => this._backgroundMenuColor;
+
+  set backgroundMenuColor(Color newValue) {
+    this._backgroundMenuColor = newValue;
+    notifyListeners();
+  }
+
+  get iconActiveColor => this._iconActiveColor;
+
+  set iconActiveColor(Color newValue) {
+    this._iconActiveColor = newValue;
+    notifyListeners();
+  }
+
+  get iconInactiveColor => this._iconInactiveColor;
+
+  set iconInactiveColor(Color newValue) {
+    this._iconInactiveColor = newValue;
     notifyListeners();
   }
 }
