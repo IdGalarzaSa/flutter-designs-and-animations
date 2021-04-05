@@ -7,8 +7,6 @@ class PinterestPage extends StatelessWidget {
   static final routeName = "PinterestPage";
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -16,16 +14,24 @@ class PinterestPage extends StatelessWidget {
         child: Stack(
           children: [
             PinterestGrid(),
-            Positioned(
-              bottom: 30,
-              child: Container(
-                color: Colors.amberAccent,
-                width: screenWidth,
-                child: Align(child: FloatingBottomMenuWidget()),
-              ),
-            ),
+            _Menu(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _Menu extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
+    return Positioned(
+      bottom: 30,
+      child: Container(
+        width: screenWidth,
+        child: Align(child: FloatingBottomMenuWidget()),
       ),
     );
   }

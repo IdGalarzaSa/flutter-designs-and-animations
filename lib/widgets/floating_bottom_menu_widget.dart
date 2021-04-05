@@ -6,23 +6,28 @@ import 'package:provider/provider.dart';
 class FloatingBottomMenuButton {
   final IconData iconData;
   final Function onPressed;
-  Color iconColor;
+  Color iconDefaultColor;
+  Color iconAccentColor;
 
   FloatingBottomMenuButton({
     @required this.iconData,
     @required this.onPressed,
-    this.iconColor = Colors.black38,
+    this.iconDefaultColor = Colors.black,
+    this.iconAccentColor = Colors.lightBlue,
   });
 }
 
 class FloatingBottomMenuWidget extends StatelessWidget {
+  final Color backgroundMenuColor;
+
+  FloatingBottomMenuWidget({this.backgroundMenuColor = Colors.white});
+
   final List<FloatingBottomMenuButton> menuButtonList = [
-    FloatingBottomMenuButton(iconData: Icons.pie_chart, onPressed: () => print("menu 1"), iconColor: Colors.blueAccent),
-    FloatingBottomMenuButton(
-        iconData: Icons.notifications, onPressed: () => print("menu 2"), iconColor: Colors.blueAccent),
-    FloatingBottomMenuButton(iconData: Icons.add, onPressed: () => print("menu 3"), iconColor: Colors.blueAccent),
-    FloatingBottomMenuButton(iconData: Icons.list, onPressed: () => print("menu 4"), iconColor: Colors.blueAccent),
-    FloatingBottomMenuButton(iconData: Icons.settings, onPressed: () => print("menu 5"), iconColor: Colors.blueAccent),
+    FloatingBottomMenuButton(iconData: Icons.pie_chart, onPressed: () => print("menu 1")),
+    FloatingBottomMenuButton(iconData: Icons.notifications, onPressed: () => print("menu 2")),
+    FloatingBottomMenuButton(iconData: Icons.add, onPressed: () => print("menu 3")),
+    FloatingBottomMenuButton(iconData: Icons.list, onPressed: () => print("menu 4")),
+    FloatingBottomMenuButton(iconData: Icons.settings, onPressed: () => print("menu 5")),
   ];
 
   @override
@@ -31,6 +36,7 @@ class FloatingBottomMenuWidget extends StatelessWidget {
       create: (BuildContext context) => new _MenuModel(),
       child: _BackgroundMenu(
         child: _ButtonsMenu(menuButtonList),
+        backgroundMenuColor: backgroundMenuColor,
       ),
     );
   }
@@ -38,7 +44,8 @@ class FloatingBottomMenuWidget extends StatelessWidget {
 
 class _BackgroundMenu extends StatelessWidget {
   final Widget child;
-  _BackgroundMenu({@required this.child});
+  final Color backgroundMenuColor;
+  _BackgroundMenu({@required this.child, this.backgroundMenuColor});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,7 @@ class _BackgroundMenu extends StatelessWidget {
       height: 40,
       width: 250,
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: backgroundMenuColor,
         borderRadius: BorderRadius.circular(100),
         boxShadow: [
           BoxShadow(
@@ -99,14 +106,13 @@ class _MenuButton extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       child: Container(
         decoration: BoxDecoration(
-          // color: Colors.amberAccent,
           borderRadius: BorderRadius.circular(200),
         ),
         padding: EdgeInsets.symmetric(horizontal: clickSpace * 50),
         child: Icon(
           button.iconData,
           size: menuModel.selectedMenuIndex == index ? 30 : 20,
-          color: menuModel.selectedMenuIndex == index ? button.iconColor : Colors.black38,
+          color: menuModel.selectedMenuIndex == index ? button.iconAccentColor : button.iconDefaultColor,
         ),
       ),
     );
