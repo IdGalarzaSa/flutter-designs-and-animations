@@ -10,7 +10,12 @@ class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: WideButtonWithIcon()),
+      body: Center(
+        child: WideButtonWithIcon(
+          onPress: () {},
+          text: 'Prueba1',
+        ),
+      ),
     );
   }
 }
