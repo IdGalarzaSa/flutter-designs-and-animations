@@ -12,8 +12,11 @@ class EmergencyPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: WideButtonWithIcon(
-          onPress: () {},
-          text: 'Prueba1',
+          text: 'Motor Accident',
+          icon: FontAwesomeIcons.carCrash,
+          gradientColor1: Color(0xff6989F5),
+          gradientColor2: Color(0xff906EF5),
+          onPress: () => print("Click"),
         ),
       ),
     );

@@ -19,22 +19,25 @@ class WideButtonWithIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        _WideButtonBackground(this.icon, this.gradientColor1, this.gradientColor2),
-        Container(
-          margin: EdgeInsets.all(45),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FaIcon(this.icon, color: Colors.white, size: 40),
-              SizedBox(width: 40),
-              Expanded(child: Text(this.text, style: TextStyle(color: Colors.white, fontSize: 18))),
-              FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white),
-            ],
+    return GestureDetector(
+      onTap: this.onPress,
+      child: Stack(
+        children: [
+          _WideButtonBackground(this.icon, this.gradientColor1, this.gradientColor2),
+          Container(
+            margin: EdgeInsets.all(45),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FaIcon(this.icon, color: Colors.white, size: 40),
+                SizedBox(width: 40),
+                Expanded(child: Text(this.text, style: TextStyle(color: Colors.white, fontSize: 18))),
+                FaIcon(FontAwesomeIcons.chevronRight, color: Colors.white),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
