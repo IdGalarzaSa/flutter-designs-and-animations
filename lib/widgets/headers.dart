@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BoxHeader extends StatelessWidget {
   @override
@@ -175,8 +176,7 @@ class _CurvedUpPainter extends CustomPainter {
     */
 
     path.lineTo(0, size.height * 0.30);
-    path.quadraticBezierTo(
-        size.width * 0.5, size.height * 0.20, size.width, size.height * 0.30);
+    path.quadraticBezierTo(size.width * 0.5, size.height * 0.20, size.width, size.height * 0.30);
     path.lineTo(size.width, 0);
 
     canvas.drawPath(path, pen);
@@ -222,8 +222,7 @@ class _CurvedDownPainter extends CustomPainter {
     */
 
     path.lineTo(0, size.height * 0.25);
-    path.quadraticBezierTo(
-        size.width * 0.5, size.height * 0.35, size.width, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.5, size.height * 0.35, size.width, size.height * 0.25);
     path.lineTo(size.width, 0);
 
     canvas.drawPath(path, pen);
@@ -260,11 +259,9 @@ class _WavePainter extends CustomPainter {
 
     path.lineTo(0, size.height * 0.25);
 
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.35,
-        size.width * 0.5, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.35, size.width * 0.5, size.height * 0.25);
 
-    path.quadraticBezierTo(
-        size.width * 0.75, size.height * 0.15, size.width, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.75, size.height * 0.15, size.width, size.height * 0.25);
     path.lineTo(size.width, 0);
 
     canvas.drawPath(path, pen);
@@ -297,8 +294,7 @@ class _WaveWithGradientPainter extends CustomPainter {
       Color(0xff6D05FA),
     ]);
 
-    final Rect rect =
-        new Rect.fromCircle(center: Offset(150.0, 225.0), radius: 200);
+    final Rect rect = new Rect.fromCircle(center: Offset(150.0, 225.0), radius: 200);
 
     final pen = Paint()..shader = gradient.createShader(rect);
 
@@ -310,11 +306,9 @@ class _WaveWithGradientPainter extends CustomPainter {
 
     path.lineTo(0, size.height * 0.25);
 
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.35,
-        size.width * 0.5, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.35, size.width * 0.5, size.height * 0.25);
 
-    path.quadraticBezierTo(
-        size.width * 0.75, size.height * 0.15, size.width, size.height * 0.25);
+    path.quadraticBezierTo(size.width * 0.75, size.height * 0.15, size.width, size.height * 0.25);
     path.lineTo(size.width, 0);
     canvas.drawPath(path, pen);
   }
@@ -326,6 +320,57 @@ class _WaveWithGradientPainter extends CustomPainter {
   bool shouldRebuildSemantics(_WaveWithGradientPainter oldDelegate) => false;
 }
 
+class HeaderWithIcon extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final Color whiteTextColor = Colors.white.withOpacity(0.7);
 
+    return Stack(
+      children: [
+        _HeaderWithIconBackground(screenSize: screenSize),
+        Positioned(
+          left: -70,
+          top: -50,
+          child: FaIcon(FontAwesomeIcons.plus, size: 250, color: Colors.white.withOpacity(0.2)),
+        ),
+        Column(
+          children: [
+            SizedBox(height: 80, width: double.infinity),
+            Text("Haz solicitado", style: TextStyle(fontSize: 20, color: whiteTextColor)),
+            SizedBox(height: 20),
+            Text("Asistencia Médica",
+                style: TextStyle(fontSize: 25, color: whiteTextColor, fontWeight: FontWeight.bold)),
+            SizedBox(height: 20),
+            FaIcon(FontAwesomeIcons.plus, size: 80, color: Colors.white),
+          ],
+        )
+      ],
+    );
+  }
+}
 
+class _HeaderWithIconBackground extends StatelessWidget {
+  final Size screenSize;
 
+  _HeaderWithIconBackground({@required this.screenSize});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      height: screenSize.height * 0.35,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(bottomLeft: Radius.circular(65)),
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xff526BF6),
+            Color(0xff67ACF2),
+          ],
+        ),
+      ),
+    );
+  }
+}

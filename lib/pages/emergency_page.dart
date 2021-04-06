@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_designs/widgets/headers.dart';
 
 class EmergencyPage extends StatelessWidget {
   static final routeName = "EmergencyPage";
@@ -7,11 +8,7 @@ class EmergencyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          child: Text("Hola mundo"),
-        ),
-      ),
+      body: HeaderWithIcon(),
     );
   }
 }
