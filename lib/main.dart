@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_designs/challengs/animation_challenge_page.dart';
 import 'package:flutter_designs/pages/animations_page.dart';
 import 'package:flutter_designs/labs/circular_animation_lab.dart';
+import 'package:flutter_designs/pages/emergency_page.dart';
 import 'package:flutter_designs/pages/header_page.dart';
 import 'package:flutter_designs/pages/pinterest_page.dart';
 import 'package:flutter_designs/pages/progress_page.dart';
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: PinterestPage.routeName,
+      initialRoute: EmergencyPage.routeName,
       routes: {
         HeaderPage.routeName: (BuildContext context) => HeaderPage(),
         AnimationsPage.routeName: (BuildContext context) => AnimationsPage(),
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         SlideshowLab.routeName: (BuildContext context) => SlideshowLab(),
         SlideshowPage.routeName: (BuildContext context) => SlideshowPage(),
         PinterestPage.routeName: (BuildContext context) => PinterestPage(),
+        EmergencyPage.routeName: (BuildContext context) => EmergencyPage(),
       },
       theme: ThemeData.dark(),
     );

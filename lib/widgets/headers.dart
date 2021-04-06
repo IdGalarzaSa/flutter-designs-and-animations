@@ -325,3 +325,7 @@ class _WaveWithGradientPainter extends CustomPainter {
   @override
   bool shouldRebuildSemantics(_WaveWithGradientPainter oldDelegate) => false;
 }
+
+
+
+
