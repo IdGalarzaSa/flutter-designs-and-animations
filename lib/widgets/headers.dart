@@ -321,28 +321,42 @@ class _WaveWithGradientPainter extends CustomPainter {
 }
 
 class HeaderWithIcon extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subTitle;
+  final Color textColor;
+  final Color iconColor;
+  final Color headerColor1;
+  final Color headerColor2;
+
+  const HeaderWithIcon({
+    @required this.icon,
+    @required this.title,
+    @required this.subTitle,
+    this.textColor = Colors.white,
+    this.iconColor = Colors.white,
+    this.headerColor1 = Colors.lightBlue,
+    this.headerColor2 = Colors.blueGrey,
+  });
+
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    final Color whiteTextColor = Colors.white.withOpacity(0.7);
+    final Color myTextColor = textColor.withOpacity(0.7);
+    final Color myIconColor = iconColor.withOpacity(0.2);
 
     return Stack(
       children: [
-        _HeaderWithIconBackground(screenSize: screenSize),
-        Positioned(
-          left: -70,
-          top: -50,
-          child: FaIcon(FontAwesomeIcons.plus, size: 250, color: Colors.white.withOpacity(0.2)),
-        ),
+        _HeaderWithIconBackground(screenSize, headerColor1, headerColor2),
+        Positioned(left: -70, top: -50, child: FaIcon(this.icon, size: 250, color: myIconColor)),
         Column(
           children: [
             SizedBox(height: 80, width: double.infinity),
-            Text("Haz solicitado", style: TextStyle(fontSize: 20, color: whiteTextColor)),
+            Text(this.subTitle, style: TextStyle(fontSize: 20, color: myTextColor)),
             SizedBox(height: 20),
-            Text("Asistencia Médica",
-                style: TextStyle(fontSize: 25, color: whiteTextColor, fontWeight: FontWeight.bold)),
+            Text(this.title, style: TextStyle(fontSize: 25, color: myTextColor, fontWeight: FontWeight.bold)),
             SizedBox(height: 20),
-            FaIcon(FontAwesomeIcons.plus, size: 80, color: Colors.white),
+            FaIcon(icon, size: 80, color: Colors.white),
           ],
         )
       ],
@@ -352,8 +366,10 @@ class HeaderWithIcon extends StatelessWidget {
 
 class _HeaderWithIconBackground extends StatelessWidget {
   final Size screenSize;
+  final Color headerColor1;
+  final Color headerColor2;
 
-  _HeaderWithIconBackground({@required this.screenSize});
+  _HeaderWithIconBackground(this.screenSize, this.headerColor1, this.headerColor2);
 
   @override
   Widget build(BuildContext context) {
@@ -365,10 +381,7 @@ class _HeaderWithIconBackground extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [
-            Color(0xff526BF6),
-            Color(0xff67ACF2),
-          ],
+          colors: [headerColor1, headerColor2],
         ),
       ),
     );
