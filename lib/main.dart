@@ -8,6 +8,7 @@ import 'package:flutter_designs/pages/pinterest_page.dart';
 import 'package:flutter_designs/pages/progress_page.dart';
 import 'package:flutter_designs/labs/slideshow_lab.dart';
 import 'package:flutter_designs/pages/slideshow_page.dart';
+import 'package:flutter_designs/pages/sliver_list_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: EmergencyPage.routeName,
+      initialRoute: SliverListPage.routeName,
       routes: {
         HeaderPage.routeName: (BuildContext context) => HeaderPage(),
         AnimationsPage.routeName: (BuildContext context) => AnimationsPage(),
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         SlideshowPage.routeName: (BuildContext context) => SlideshowPage(),
         PinterestPage.routeName: (BuildContext context) => PinterestPage(),
         EmergencyPage.routeName: (BuildContext context) => EmergencyPage(),
+        SliverListPage.routeName: (BuildContext context) => SliverListPage(),
       },
       theme: ThemeData.dark(),
     );
