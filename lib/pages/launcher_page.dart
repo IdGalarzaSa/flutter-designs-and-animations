@@ -15,7 +15,7 @@ class LauncherPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Diseños flutter'),
-        backgroundColor: appTheme.currentTheme.scaffoldBackgroundColor,
+        backgroundColor: appTheme.currentTheme.accentColor,
       ),
       drawer: _Drawer(),
       body: _DesignList(),
