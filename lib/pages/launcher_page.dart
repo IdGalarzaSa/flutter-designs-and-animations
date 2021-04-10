@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_designs/routes/routes.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LauncherPage extends StatelessWidget {
@@ -101,21 +102,18 @@ class _DesignList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      itemCount: 10,
+      itemCount: pageRoutes.length,
       physics: BouncingScrollPhysics(),
       separatorBuilder: (BuildContext context, int index) => Divider(
         color: Colors.blue,
       ),
       itemBuilder: (BuildContext context, int index) => ListTile(
-        leading: FaIcon(
-          FontAwesomeIcons.apple,
-          color: Colors.blue,
-        ),
-        title: Text('Hola mundo'),
-        trailing: Icon(
-          Icons.chevron_right,
-          color: Colors.blue,
-        ),
+        leading: FaIcon(pageRoutes[index].icon, color: Colors.blue),
+        title: Text(pageRoutes[index].title),
+        trailing: Icon(Icons.chevron_right, color: Colors.blue),
+        onTap: () {
+          Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => pageRoutes[index].page));
+        },
       ),
     );
   }
