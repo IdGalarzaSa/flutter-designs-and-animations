@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_designs/routes/routes.dart';
+import 'package:flutter_designs/theme/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LauncherPage extends StatelessWidget {
   static final String routeName = 'LauncherPage';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +20,8 @@ class LauncherPage extends StatelessWidget {
 class _Drawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Drawer(
       child: Container(
         child: Column(
@@ -35,7 +38,11 @@ class _Drawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
               title: Text('Dark mode'),
-              trailing: Switch.adaptive(value: true, onChanged: (newValue) {}, activeColor: Colors.blue),
+              trailing: Switch.adaptive(
+                value: appTheme.dartTheme,
+                onChanged: (newValue) => appTheme.dartTheme = newValue,
+                activeColor: Colors.blue,
+              ),
             ),
             SafeArea(
               bottom: true,
@@ -44,8 +51,12 @@ class _Drawer extends StatelessWidget {
               top: false,
               child: ListTile(
                 leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
-                title: Text('Dark mode'),
-                trailing: Switch.adaptive(value: true, onChanged: (newValue) {}, activeColor: Colors.blue),
+                title: Text('Custom Theme'),
+                trailing: Switch.adaptive(
+                  value: appTheme.customTheme,
+                  onChanged: (newValue) => appTheme.customTheme = newValue,
+                  activeColor: Colors.blue,
+                ),
               ),
             )
           ],
