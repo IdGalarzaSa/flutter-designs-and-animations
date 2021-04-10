@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class LauncherPage extends StatelessWidget {
   static final String routeName = 'LauncherPage';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +27,7 @@ class _Drawer extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            _headerDrawer(),
+            _headerDrawer(appTheme),
             _drawerDivider(),
             Expanded(
               child: _DesignList(),
@@ -54,12 +55,12 @@ class _Drawer extends StatelessWidget {
       right: false,
       top: false,
       child: ListTile(
-        leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
+        leading: Icon(Icons.lightbulb_outline, color: appTheme.currentTheme.accentColor),
         title: Text('Custom Theme'),
         trailing: Switch.adaptive(
           value: appTheme.customTheme,
           onChanged: (newValue) => appTheme.customTheme = newValue,
-          activeColor: Colors.blue,
+          activeColor: appTheme.currentTheme.accentColor,
         ),
       ),
     );
@@ -67,22 +68,21 @@ class _Drawer extends StatelessWidget {
 
   ListTile _darkThemeListTile(ThemeChanger appTheme) {
     return ListTile(
-      leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
+      leading: Icon(Icons.lightbulb_outline, color: appTheme.currentTheme.accentColor),
       title: Text('Dark mode'),
       trailing: Switch.adaptive(
-        value: appTheme.dartTheme,
-        onChanged: (newValue) => appTheme.dartTheme = newValue,
-        activeColor: Colors.blue,
-      ),
+          value: appTheme.dartTheme,
+          onChanged: (newValue) => appTheme.dartTheme = newValue,
+          activeColor: appTheme.currentTheme.accentColor),
     );
   }
 
-  Widget _headerDrawer() {
+  Widget _headerDrawer(ThemeChanger appTheme) {
     return Container(
         padding: EdgeInsets.all(20),
         height: 100,
         width: double.infinity,
-        color: Colors.amber,
+        color: Colors.amberAccent,
         child: SafeArea(
           bottom: false,
           top: false,
@@ -122,16 +122,16 @@ class _Drawer extends StatelessWidget {
 class _DesignList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
     return ListView.separated(
       itemCount: pageRoutes.length,
       physics: BouncingScrollPhysics(),
-      separatorBuilder: (BuildContext context, int index) => Divider(
-        color: Colors.blue,
-      ),
+      separatorBuilder: (BuildContext context, int index) => Divider(color: appTheme.primaryColorLight),
       itemBuilder: (BuildContext context, int index) => ListTile(
-        leading: FaIcon(pageRoutes[index].icon, color: Colors.blue),
+        leading: FaIcon(pageRoutes[index].icon, color: appTheme.accentColor),
         title: Text(pageRoutes[index].title),
-        trailing: Icon(Icons.chevron_right, color: Colors.blue),
+        trailing: Icon(Icons.chevron_right, color: appTheme.accentColor),
         onTap: () {
           Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => pageRoutes[index].page));
         },

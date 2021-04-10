@@ -15,7 +15,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (BuildContext context) {
-        return ThemeChanger();
+        return ThemeChanger(1);
       },
       child: _MainApp(),
     );
