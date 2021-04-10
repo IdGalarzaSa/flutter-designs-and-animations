@@ -10,8 +10,13 @@ class LauncherPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Diseños flutter')),
+      appBar: AppBar(
+        title: Text('Diseños flutter'),
+        backgroundColor: appTheme.currentTheme.scaffoldBackgroundColor,
+      ),
       drawer: _Drawer(),
       body: _DesignList(),
     );
@@ -25,6 +30,7 @@ class _Drawer extends StatelessWidget {
 
     return Drawer(
       child: Container(
+        color: appTheme.currentTheme.scaffoldBackgroundColor,
         child: Column(
           children: [
             _headerDrawer(appTheme),
