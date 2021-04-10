@@ -27,40 +27,52 @@ class _Drawer extends StatelessWidget {
         child: Column(
           children: [
             _headerDrawer(),
-            Container(
-              width: double.infinity,
-              height: 2,
-              color: Colors.white,
-            ),
+            _drawerDivider(),
             Expanded(
               child: _DesignList(),
             ),
-            ListTile(
-              leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
-              title: Text('Dark mode'),
-              trailing: Switch.adaptive(
-                value: appTheme.dartTheme,
-                onChanged: (newValue) => appTheme.dartTheme = newValue,
-                activeColor: Colors.blue,
-              ),
-            ),
-            SafeArea(
-              bottom: true,
-              left: false,
-              right: false,
-              top: false,
-              child: ListTile(
-                leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
-                title: Text('Custom Theme'),
-                trailing: Switch.adaptive(
-                  value: appTheme.customTheme,
-                  onChanged: (newValue) => appTheme.customTheme = newValue,
-                  activeColor: Colors.blue,
-                ),
-              ),
-            )
+            _darkThemeListTile(appTheme),
+            _customThemeListTile(appTheme)
           ],
         ),
+      ),
+    );
+  }
+
+  Container _drawerDivider() {
+    return Container(
+      width: double.infinity,
+      height: 2,
+      color: Colors.white,
+    );
+  }
+
+  SafeArea _customThemeListTile(ThemeChanger appTheme) {
+    return SafeArea(
+      bottom: true,
+      left: false,
+      right: false,
+      top: false,
+      child: ListTile(
+        leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
+        title: Text('Custom Theme'),
+        trailing: Switch.adaptive(
+          value: appTheme.customTheme,
+          onChanged: (newValue) => appTheme.customTheme = newValue,
+          activeColor: Colors.blue,
+        ),
+      ),
+    );
+  }
+
+  ListTile _darkThemeListTile(ThemeChanger appTheme) {
+    return ListTile(
+      leading: Icon(Icons.lightbulb_outline, color: Colors.blue),
+      title: Text('Dark mode'),
+      trailing: Switch.adaptive(
+        value: appTheme.dartTheme,
+        onChanged: (newValue) => appTheme.dartTheme = newValue,
+        activeColor: Colors.blue,
       ),
     );
   }
@@ -75,35 +87,33 @@ class _Drawer extends StatelessWidget {
           bottom: false,
           top: false,
           right: false,
-          child: Flexible(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                CircleAvatar(
-                  child: Text(
-                    'IG',
-                    style: TextStyle(fontSize: 15),
-                  ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              CircleAvatar(
+                child: Text(
+                  'IG',
+                  style: TextStyle(fontSize: 15),
                 ),
-                SizedBox(
-                  width: 30,
+              ),
+              SizedBox(
+                width: 30,
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Ivan Daniel Galarza Saavedra",
+                      textAlign: TextAlign.center,
+                    ),
+                    Text("Flutter developer"),
+                  ],
                 ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Ivan Daniel Galarza Saavedra",
-                        textAlign: TextAlign.center,
-                      ),
-                      Text("Flutter developer"),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              )
+            ],
           ),
         ));
   }
