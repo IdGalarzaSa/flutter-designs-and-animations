@@ -4,6 +4,7 @@ import 'package:flutter_designs/pages/animations_page.dart';
 import 'package:flutter_designs/labs/circular_animation_lab.dart';
 import 'package:flutter_designs/pages/emergency_page.dart';
 import 'package:flutter_designs/pages/header_page.dart';
+import 'package:flutter_designs/pages/launcher_page.dart';
 import 'package:flutter_designs/pages/pinterest_page.dart';
 import 'package:flutter_designs/pages/progress_page.dart';
 import 'package:flutter_designs/labs/slideshow_lab.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: SliverListPage.routeName,
+      initialRoute: LauncherPage.routeName,
       routes: {
         HeaderPage.routeName: (BuildContext context) => HeaderPage(),
         AnimationsPage.routeName: (BuildContext context) => AnimationsPage(),
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         PinterestPage.routeName: (BuildContext context) => PinterestPage(),
         EmergencyPage.routeName: (BuildContext context) => EmergencyPage(),
         SliverListPage.routeName: (BuildContext context) => SliverListPage(),
+        LauncherPage.routeName: (BuildContext context) => LauncherPage(),
       },
       theme: ThemeData.dark(),
     );
