@@ -1,38 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_designs/pages/launcher_page.dart';
+import 'package:flutter_designs/pages/launcher_tablet_page.dart';
 import 'package:flutter_designs/theme/theme.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) {
-        return ThemeChanger(1);
-      },
-      child: _MainApp(),
+void main() => runApp(
+      ChangeNotifierProvider(
+        create: (BuildContext context) => new ThemeChanger(2),
+        child: MyApp(),
+      ),
     );
-  }
-}
 
-class _MainApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+
     return MaterialApp(
-      title: 'Material App',
-      initialRoute: LauncherPage.routeName,
-      routes: {
-        LauncherPage.routeName: (BuildContext context) => LauncherPage(),
-      },
+      title: 'Designs App',
       theme: appTheme.currentTheme,
+      home: OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          final size = MediaQuery.of(context).size;
+
+          return size.width > 500 ? LauncherTabletPage() : LauncherPage();
+        },
+      ),
     );
   }
 }
