@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_designs/models/layout_model.dart';
+import 'package:flutter_designs/pages/pinterest_page.dart';
 import 'package:flutter_designs/routes/routes.dart';
 import 'package:flutter_designs/theme/theme.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -11,15 +13,25 @@ class LauncherTabletPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+    final layoutModel = Provider.of<LayoutModel>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Diseños flutter - Tablet'),
-        backgroundColor: appTheme.currentTheme.accentColor,
-      ),
-      drawer: _Drawer(),
-      body: _DesignList(),
-    );
+        appBar: AppBar(
+          title: Text('Diseños flutter - Tablet'),
+          backgroundColor: appTheme.currentTheme.accentColor,
+        ),
+        drawer: _Drawer(),
+        body: Row(
+          children: [
+            Container(width: 400, height: double.infinity, child: _DesignList()),
+            Container(
+              width: 1,
+              height: double.infinity,
+              color: appTheme.currentTheme.accentColor,
+            ),
+            Expanded(child: Container(child: layoutModel.currentWidget)),
+          ],
+        ));
   }
 }
 
@@ -129,6 +141,7 @@ class _DesignList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
+    final layoutModel = Provider.of<LayoutModel>(context);
 
     return ListView.separated(
       itemCount: pageRoutes.length,
@@ -139,7 +152,8 @@ class _DesignList extends StatelessWidget {
         title: Text(pageRoutes[index].title),
         trailing: Icon(Icons.chevron_right, color: appTheme.accentColor),
         onTap: () {
-          Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => pageRoutes[index].page));
+          // Navigator.push(context, CupertinoPageRoute(builder: (BuildContext context) => pageRoutes[index].page));
+          layoutModel.currentWidget = pageRoutes[index].page;
         },
       ),
     );

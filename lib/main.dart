@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_designs/models/layout_model.dart';
 import 'package:flutter_designs/pages/launcher_page.dart';
 import 'package:flutter_designs/pages/launcher_tablet_page.dart';
 import 'package:flutter_designs/theme/theme.dart';
 import 'package:provider/provider.dart';
 
+// void main() => runApp(
+//       ChangeNotifierProvider(
+//         create: (BuildContext context) => new ThemeChanger(2),
+//         child: MyApp(),
+//       ),
+//     );
+
 void main() => runApp(
-      ChangeNotifierProvider(
-        create: (BuildContext context) => new ThemeChanger(2),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<ThemeChanger>(create: (_) => new ThemeChanger(2)),
+          ChangeNotifierProvider(create: (_) => new LayoutModel()),
+        ],
         child: MyApp(),
       ),
     );
